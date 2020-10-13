@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "524793696808",
+    "firebase_url": "https://flashmessage-530bc.firebaseio.com",
+    "project_id": "flashmessage-530bc",
+    "storage_bucket": "flashmessage-530bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524793696808:android:8ad0a91b2ffe1a08701b1d",
+        "android_client_info": {
+          "package_name": "com.flashmessage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "524793696808-5qi6u9k57fddqvav1uckrsktf0nvolnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq7HQ0oqDjyY58Az88aWnmMLxPMPCyI9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "524793696808-5qi6u9k57fddqvav1uckrsktf0nvolnb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
