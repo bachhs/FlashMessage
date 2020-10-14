@@ -1,46 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './src/screens/LoginScreen/LoginScreen'
 import RegistrationScreen from './src/screens/RegistrationScreen/RegistrationScreen'
 
 function App() {
-  // Set an initializing state whilst Firebase connects
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
-
-  // Handle user state changes
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    const usersRef = firestore().collection('users');
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        usersRef
+          .doc(user.uid)
+          .get()
+          .then((document) => {
+            const userData = document.data()
+            setLoading(false)
+            setUser(userData)
+          })
+          .catch((error) => {
+            setLoading(false)
+          });
+      } else {
+        setLoading(false)
+      }
+    });
   }, []);
 
-  if (initializing) return null;
+  if (loading) {
+    return (
+      <></>
+    )
+  }
 
   const Stack = createStackNavigator();
 
-  if (!user) {
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Registration" component={RegistrationScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
-
   return (
-    <View>
-      <Text>Welcome {user.email}</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        {user ? (
+          <Stack.Screen name="Home">
+            {props => <HomeScreen {...props} extraData={user} />}
+          </Stack.Screen>
+        ) : (
+            <>
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Registration" component={RegistrationScreen} />
+            </>
+          )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
