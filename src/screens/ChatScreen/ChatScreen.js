@@ -8,7 +8,6 @@ import {
     renderSystemMessage,
     renderMessage,
     renderMessageText,
-    renderCustomView,
 } from './MessageContainer';
 
 const ChatScreen = () => {
@@ -37,7 +36,6 @@ const ChatScreen = () => {
             alignTop
             alwaysShowSend
             scrollToBottom
-            // showUserAvatar
             renderAvatarOnTop
             renderUsernameOnMessage
             bottomOffset={26}
@@ -52,16 +50,8 @@ const ChatScreen = () => {
             renderMessage={renderMessage}
             renderMessageText={renderMessageText}
             // renderMessageImage
-            renderCustomView={renderCustomView}
             isCustomViewBottom
             messagesContainerStyle={{ backgroundColor: 'indigo' }}
-            parsePatterns={(linkStyle) => [
-                {
-                    pattern: /#(\w+)/,
-                    style: linkStyle,
-                    onPress: (tag) => console.log(`Pressed on hashtag: ${tag}`),
-                },
-            ]}
         />
     );
 };

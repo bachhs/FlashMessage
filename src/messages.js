@@ -35,24 +35,6 @@ const messages = [
             name: 'React Native',
             avatar: 'https://placeimg.com/140/140/any',
         },
-        quickReplies: {
-            type: 'radio', // or 'checkbox',
-            keepIt: true,
-            values: [
-                {
-                    title: '😋 Yes',
-                    value: 'yes',
-                },
-                {
-                    title: '📷 Yes, let me show you with a picture!',
-                    value: 'yes_picture',
-                },
-                {
-                    title: '😞 Nope. What?',
-                    value: 'no',
-                },
-            ],
-        },
     },
     {
         _id: 5,
@@ -62,23 +44,6 @@ const messages = [
             _id: 2,
             name: 'React Native',
             avatar: 'https://placeimg.com/140/140/any',
-        },
-        quickReplies: {
-            type: 'checkbox', // or 'radio',
-            values: [
-                {
-                    title: 'Yes',
-                    value: 'yes',
-                },
-                {
-                    title: 'Yes, let me show you with a picture!',
-                    value: 'yes_picture',
-                },
-                {
-                    title: 'Nope. What?',
-                    value: 'no',
-                },
-            ],
         },
     },
     {

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Avatar, Bubble, SystemMessage, Message, MessageText } from 'react-native-gifted-chat';
@@ -14,8 +13,6 @@ export const renderAvatar = (props) => (
 export const renderBubble = (props) => (
   <Bubble
     {...props}
-    // renderTime={() => <Text>Time</Text>}
-    // renderTicks={() => <Text>Ticks</Text>}
     containerStyle={{
       left: { borderColor: 'teal', borderWidth: 8 },
       right: {},
@@ -53,7 +50,6 @@ export const renderSystemMessage = (props) => (
 export const renderMessage = (props) => (
   <Message
     {...props}
-    // renderDay={() => <Text>Date</Text>}
     containerStyle={{
       left: { backgroundColor: 'lime' },
       right: { backgroundColor: 'gold' },
