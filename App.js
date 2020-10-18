@@ -4,12 +4,13 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from './src/screens/LoginScreen/LoginScreen'
-import RegistrationScreen from './src/screens/RegistrationScreen/RegistrationScreen'
+import LoginScreen from './src/screens/LoginScreen/LoginScreen';
+import RegistrationScreen from './src/screens/RegistrationScreen/RegistrationScreen';
+import ChatScreen from './src/screens/ChatScreen/ChatScreen';
 
 function App() {
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const usersRef = firestore().collection('users');
@@ -35,7 +36,7 @@ function App() {
   if (loading) {
     return (
       <></>
-    )
+    );
   }
 
   const Stack = createStackNavigator();
@@ -44,9 +45,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
         {user ? (
-          <Stack.Screen name="Home">
-            {props => <HomeScreen {...props} extraData={user} />}
-          </Stack.Screen>
+          <Stack.Screen name="Chat" component={ChatScreen} />
         ) : (
             <>
               <Stack.Screen name="Login" component={LoginScreen} />
