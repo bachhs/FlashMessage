@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, Button, View } from 'react-native'
+import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('')
@@ -31,7 +31,7 @@ export default function LoginScreen({ navigation }) {
                         navigation.navigate('Home', { user: user })
                     })
                     .catch(error => {
-                        alert(error);
+                        alert(error)
                     });
             })
             .catch(error => {
@@ -67,12 +67,11 @@ export default function LoginScreen({ navigation }) {
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
-                <Button
-                    title="Login"
+                <TouchableOpacity
                     style={styles.button}
                     onPress={() => onLoginPress()}>
                     <Text style={styles.buttonTitle}>Log in</Text>
-                </Button>
+                </TouchableOpacity>
                 <View style={styles.footerView}>
                     <Text style={styles.footerText}>Don't have an account? <Text onPress={onFooterLinkPress} style={styles.footerLink}>Sign up</Text></Text>
                 </View>

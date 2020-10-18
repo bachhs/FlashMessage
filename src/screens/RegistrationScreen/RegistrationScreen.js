@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './styles';
+import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 export default function RegistrationScreen({ navigation }) {
-    const [userName, setUserName] = useState('')
+    const [fullName, setFullName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -26,7 +27,7 @@ export default function RegistrationScreen({ navigation }) {
                 const data = {
                     id: uid,
                     email,
-                    userName,
+                    fullName,
                 };
                 const usersRef = firestore().collection('users')
                 usersRef
@@ -55,10 +56,10 @@ export default function RegistrationScreen({ navigation }) {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='User Name'
+                    placeholder='Full Name'
                     placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setUserName(text)}
-                    value={userName}
+                    onChangeText={(text) => setFullName(text)}
+                    value={fullName}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />

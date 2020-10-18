@@ -26,7 +26,7 @@ export default StyleSheet.create({
         marginRight: 30,
         paddingLeft: 16
     },
-    button: {
+    touchableOpacity: {
         backgroundColor: '#788eec',
         marginLeft: 30,
         marginRight: 30,
@@ -36,7 +36,7 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center'
     },
-    buttonTitle: {
+    touchableOpacityTitle: {
         color: 'white',
         fontSize: 16,
         fontWeight: "bold"

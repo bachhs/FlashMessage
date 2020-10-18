@@ -10,7 +10,7 @@ const messages = [
         text: 'Hello developer',
         createdAt: new Date(Date.UTC(2016, 5, 12, 17, 20, 0)),
         user: {
-            _id: 2,
+            _id: 3,
             name: 'React Native',
             avatar: 'https://placeimg.com/140/140/any',
         },
@@ -31,9 +31,9 @@ const messages = [
         text: 'This is a quick reply. Do you love Gifted Chat? (radio) KEEP IT',
         createdAt: new Date(Date.UTC(2016, 5, 14, 17, 20, 0)),
         user: {
-            _id: 2,
+            _id: 3,
             name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
+            avatar: 'https://placeimg.com/141/141/any',
         },
     },
     {
