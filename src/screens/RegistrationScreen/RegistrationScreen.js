@@ -6,7 +6,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 export default function RegistrationScreen({ navigation }) {
-    const [fullName, setFullName] = useState('')
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
@@ -25,9 +25,11 @@ export default function RegistrationScreen({ navigation }) {
             .then((response) => {
                 const uid = response.user.uid
                 const data = {
-                    id: uid,
+                    _id: uid,
+                    name,
+                    avatar: 'https://i.pinimg.com/originals/b9/58/2d/b9582d806f57b4d8aab0655759d3cb34.jpg',
                     email,
-                    fullName,
+                    birthDay: firestore.Timestamp.now(),
                 };
                 const usersRef = firestore().collection('users')
                 usersRef
@@ -56,10 +58,10 @@ export default function RegistrationScreen({ navigation }) {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Full Name'
+                    placeholder='Name'
                     placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setFullName(text)}
-                    value={fullName}
+                    onChangeText={(text) => setName(text)}
+                    value={name}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
