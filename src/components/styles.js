@@ -4,7 +4,8 @@ export const { width, height } = Dimensions.get('screen');
 
 export default StyleSheet.create({
     button: {
-        marginTop: 10
+        marginTop: 10,
+        backgroundColor: '#0c8af9',
     },
     buttonContainer: {
         width: width / 2,

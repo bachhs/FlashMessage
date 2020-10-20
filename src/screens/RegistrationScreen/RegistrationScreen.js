@@ -9,6 +9,8 @@ import styles from './styles';
 export default function RegistrationScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
 
   const { register } = useContext(AuthContext);
 
@@ -27,17 +29,30 @@ export default function RegistrationScreen({ navigation }) {
         secureTextEntry={true}
         onChangeText={userPassword => setPassword(userPassword)}
       />
+      <FormInput
+        labelName='Confirm Password'
+        value={confirmPassword}
+        secureTextEntry={true}
+        onChangeText={userConfirmPassword => setConfirmPassword(userConfirmPassword)}
+      />
+      <FormInput
+        labelName='Name'
+        value={name}
+        autoCapitalize='none'
+        onChangeText={userName => setName(userName)}
+      />
+
       <FormButton
         title='Register'
         modeValue='contained'
         labelStyle={styles.loginButtonLabel}
-        onPress={() => register(email, password)}
+        onPress={() => register(email, password, confirmPassword, name)}
       />
       <IconButton
         icon='keyboard-backspace'
         size={30}
         style={styles.navButton}
-        color='#6646ee'
+        color='#0c8af9'
         onPress={() => navigation.goBack()}
       />
     </View>

@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { IconButton } from 'react-native-paper';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
-import AddHomeScreen from '../screens/AddRomScreen/AddRoomScreen';
+import AddChatScreen from '../screens/AddChatScreen/AddChatScreen';
 import ChatScreen from '../screens/ChatScreen/ChatScreen';
 import { AuthContext } from './AuthProvider';
 
@@ -34,7 +34,7 @@ function ChatApp() {
               icon='message-plus'
               size={28}
               color='#ffffff'
-              onPress={() => navigation.navigate('AddRoom')}
+              onPress={() => navigation.navigate('AddChat')}
             />
           ),
           headerLeft: () => (
@@ -59,7 +59,7 @@ export default function HomeStack() {
   return (
     <ModalStack.Navigator mode='modal' headerMode='none'>
       <ModalStack.Screen name='ChatApp' component={ChatApp} />
-      <ModalStack.Screen name='AddRoom' component={AddHomeScreen} />
+      <ModalStack.Screen name='AddChat' component={AddChatScreen} />
     </ModalStack.Navigator>
   );
 }
