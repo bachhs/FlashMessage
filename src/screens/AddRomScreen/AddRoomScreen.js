@@ -5,14 +5,12 @@ import firestore from '@react-native-firebase/firestore';
 import FormInput from '../../components/FormInput';
 import FormButton from '../../components/FormButton';
 import useStatsBar from '../../utils/useStatusBar';
+import styles from './styles';
 
 export default function AddHomeScreen({ navigation }) {
   useStatsBar('dark-content');
   const [roomName, setRoomName] = useState('');
 
-  /**
-   * Create a new Firestore collection to save threads
-   */
   function handleButtonPress() {
     if (roomName.length > 0) {
       firestore()
@@ -63,27 +61,3 @@ export default function AddHomeScreen({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  rootContainer: {
-    flex: 1
-  },
-  closeButtonContainer: {
-    position: 'absolute',
-    top: 30,
-    right: 0,
-    zIndex: 1
-  },
-  innerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 10
-  },
-  buttonLabel: {
-    fontSize: 22
-  }
-});

@@ -4,6 +4,7 @@ import { List, Divider } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import Loading from '../../components/Loading';
 import useStatsBar from '../../utils/useStatusBar';
+import styles from './styles';
 
 export default function HomeScreen({ navigation }) {
     useStatsBar('light-content');
@@ -73,16 +74,3 @@ export default function HomeScreen({ navigation }) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#f5f5f5',
-        flex: 1
-    },
-    listTitle: {
-        fontSize: 22
-    },
-    listDescription: {
-        fontSize: 16
-    }
-});

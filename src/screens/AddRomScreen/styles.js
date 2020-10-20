@@ -1,20 +1,25 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
-        backgroundColor: '#f5f5f5',
+    rootContainer: {
+        flex: 1
+    },
+    closeButtonContainer: {
+        position: 'absolute',
+        top: 30,
+        right: 0,
+        zIndex: 1
+    },
+    innerContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    titleText: {
+    title: {
         fontSize: 24,
         marginBottom: 10
     },
-    loginButtonLabel: {
+    buttonLabel: {
         fontSize: 22
-    },
-    navButtonText: {
-        fontSize: 16
     }
 });

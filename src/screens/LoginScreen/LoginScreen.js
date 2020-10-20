@@ -4,6 +4,7 @@ import { Title } from 'react-native-paper';
 import FormInput from '../../components/FormInput';
 import FormButton from '../../components/FormButton';
 import { AuthContext } from '../../navigation/AuthProvider';
+import styles from './styles';
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
@@ -37,27 +38,8 @@ export default function LoginScreen({ navigation }) {
                 modeValue='text'
                 uppercase={false}
                 labelStyle={styles.navButtonText}
-                onPress={() => navigation.navigate('Signup')}
+                onPress={() => navigation.navigate('Registration')}
             />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#f5f5f5',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    titleText: {
-        fontSize: 24,
-        marginBottom: 10
-    },
-    loginButtonLabel: {
-        fontSize: 22
-    },
-    navButtonText: {
-        fontSize: 16
-    }
-});

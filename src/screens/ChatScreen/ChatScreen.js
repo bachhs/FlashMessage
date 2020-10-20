@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import initialMessages from '../../messages';
+import useStatsBar from '../../utils/useStatusBar';
 
 const ChatScreen = () => {
+
+    useStatsBar('light-content');
+
     const [text, setText] = useState('');
     const [messages, setMessages] = useState([]);
 
