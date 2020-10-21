@@ -6,7 +6,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { IconButton, Title } from 'react-native-paper';
-import firestore from '@react-native-firebase/firestore';
+import firestore, { firebase } from '@react-native-firebase/firestore';
 import FormInput from '../../components/FormInput';
 import FormButton from '../../components/FormButton';
 import Autocomplete from 'react-native-dropdown-autocomplete-textinput';
@@ -18,12 +18,26 @@ export default function AddChatScreen({ navigation }) {
   useStatsBar('light-content');
   const [roomName, setRoomName] = useState('');
 
-  function handleButtonPress() {
-    if (roomName.length > 0) {
+  async function handleButtonPress(arr) {
+    var exist = await firestore()
+      .collection('threads')
+      .get()
+      .then(function (querySnapShot) {
+        let temp = false;
+        querySnapShot.forEach(function (doc) {
+          if (JSON.stringify(doc.data().people) == JSON.stringify(arr)) {
+            temp = true;
+          }
+        })
+        return rs;
+      }
+      );
+    if (roomName.length > 0 && !exist) {
       firestore()
         .collection('threads')
         .add({
           name: roomName,
+          people: arr,
           latestMessage: {
             text: `You have joined the room ${roomName}.`,
             createdAt: new Date().getTime()
@@ -38,7 +52,9 @@ export default function AddChatScreen({ navigation }) {
           navigation.navigate('Home');
         });
     }
+
   }
+
   return (
     <View style={styles.rootContainer}>
       <View style={styles.closeButtonContainer}>
@@ -55,16 +71,18 @@ export default function AddChatScreen({ navigation }) {
           <Autocomplete
             data={DATA}
             displayKey="name"
-            placeholder={'Placeholder1'}
-            onSelect={value => console.log('value', value)}
+            placeholder={'User Name'}
+            onSelect={value => {
+              setRoomName(value.name);
+            }}
           />
         </View>
         <FormButton
           title='Create'
           modeValue='contained'
           labelStyle={styles.buttonLabel}
-          onPress={() => handleButtonPress()}
-          disabled={roomName.length === 0}
+          onPress={() => handleButtonPress([roomName])}
+          disabled={(roomName.length === 0)}
         />
       </View>
     </View>
