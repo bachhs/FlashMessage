@@ -29,7 +29,7 @@ export default function AddChatScreen({ navigation }) {
             temp = true;
           }
         })
-        return rs;
+        return temp;
       }
       );
     if (roomName.length > 0 && !exist) {
