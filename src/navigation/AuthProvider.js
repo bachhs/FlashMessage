@@ -21,8 +21,8 @@ export const AuthProvider = ({ children }) => {
           auth()
             .signInWithEmailAndPassword(email, password)
             .then((response) => {
-              const uid = response.user.uid
-              const usersRef = firestore().collection('users')
+              const uid = response.user.uid;
+              const usersRef = firestore().collection('users');
               usersRef
                 .doc(uid)
                 .get()
@@ -38,18 +38,18 @@ export const AuthProvider = ({ children }) => {
                 });
             })
             .catch(error => {
-              alert(error)
+              alert(error);
             })
         },
         register: (email, password, confirmPassword, name) => {
           if (password !== confirmPassword) {
-            alert("Passwords don't match.")
-            return
+            alert("Passwords don't match.");
+            return;
           }
           auth()
             .createUserWithEmailAndPassword(email, password)
             .then((response) => {
-              const uid = response.user.uid
+              const uid = response.user.uid;
               const data = {
                 _id: uid,
                 name,
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
                 email,
                 birthDay: firestore.Timestamp.now(),
               };
-              const usersRef = firestore().collection('users')
+              const usersRef = firestore().collection('users');
               usersRef
                 .doc(uid)
                 .set(data)
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }) => {
                 });
             })
             .catch((error) => {
-              alert(error)
+              alert(error);
             });
         },
         logout: async () => {
