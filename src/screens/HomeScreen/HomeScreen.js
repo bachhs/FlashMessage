@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { List, Divider } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import Loading from '../../components/Loading';
 import useStatsBar from '../../utils/useStatusBar';
 import styles from './styles';
+import { AuthContext } from '../../navigation/AuthProvider';
 
 export default function HomeScreen({ navigation }) {
     useStatsBar('light-content');
-
+    const { user } = useContext(AuthContext);
     const [threads, setThreads] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -58,7 +59,7 @@ export default function HomeScreen({ navigation }) {
                 ItemSeparatorComponent={() => <Divider />}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Chat')}
+                        onPress={() => navigation.navigate('Chat', { _id: user.uid, thread: item })}
                     >
                         <List.Item
                             title={item.name}

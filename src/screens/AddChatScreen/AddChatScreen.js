@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Text,
   View,
@@ -16,15 +16,17 @@ import useStatsBar from '../../utils/useStatusBar';
 import styles from './styles';
 import { height, width } from '../../components/styles';
 import { FlatList } from 'react-native-gesture-handler';
+import { AuthContext } from '../../navigation/AuthProvider';
 
 export default function AddChatScreen({ navigation }) {
   useStatsBar('light-content');
-  const [roomName, setRoomName] = useState('');
+
+  const { user } = useContext(AuthContext);
   const [roomPeople, setRoomPeople] = useState([]);
   const [tagsSelected, setTagsSelected] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
 
-  async function myAsyncEffect() {
+  async function getSuggestion() {
     let contactList = await firestore()
       .collection('users')
       .get()
@@ -41,13 +43,17 @@ export default function AddChatScreen({ navigation }) {
     setSuggestions(contactList);
   }
 
-  useEffect(() => { myAsyncEffect() }, []);
+  useEffect(() => { getSuggestion() }, []);
 
   async function handleButtonPress() {
-
+    let roomName = "";
     for (let i in tagsSelected) {
       setRoomPeople(roomPeople.push(tagsSelected[i]._id));
+      roomName += tagsSelected[i].name + " ";
     }
+    setTagsSelected([]);
+    setRoomPeople(roomPeople.push(user.uid));
+    setRoomPeople(roomPeople.sort());
 
     let exist = await firestore()
       .collection('threads')
@@ -63,7 +69,7 @@ export default function AddChatScreen({ navigation }) {
       }
       );
 
-    if (roomName.length > 0 && !exist) {
+    if (!exist) {
       firestore()
         .collection('threads')
         .add({
@@ -85,7 +91,7 @@ export default function AddChatScreen({ navigation }) {
     }
   }
 
-  const customFilterData = query => {
+  const customFilterData = (query) => {
     //override suggestion filter, we can search by specific attributes
     query = query.toUpperCase();
     let searchResults = suggestions.filter(s => {
@@ -97,7 +103,7 @@ export default function AddChatScreen({ navigation }) {
     return searchResults;
   };
 
-  const customRenderTags = tags => {
+  const customRenderTags = (tags) => {
     //override the tags render
     return (
       <View style={styles.customTagsContainer}>
@@ -118,7 +124,7 @@ export default function AddChatScreen({ navigation }) {
     );
   };
 
-  const customRenderSuggestion = suggestion => {
+  const customRenderSuggestion = (suggestion) => {
     //override suggestion render the drop down
     const name = suggestion.name;
     return (
@@ -128,19 +134,19 @@ export default function AddChatScreen({ navigation }) {
     );
   };
 
-  const handleDelete = index => {
+  const handleDelete = (index) => {
     //tag deleted, remove from our tags array
     let temp = tagsSelected;
     temp.splice(index, 1);
     setTagsSelected([...temp]);
   };
 
-  const handleAddition = contact => {
+  const handleAddition = (contact) => {
     //suggestion clicked, push it to our tags array
     setTagsSelected(tagsSelected.concat([contact]));
   };
 
-  const onCustomTagCreated = userInput => {
+  const onCustomTagCreated = (userInput) => {
     //user pressed enter, create a new tag from their input
     const contact = {
       email: userInput,
@@ -177,7 +183,7 @@ export default function AddChatScreen({ navigation }) {
           title='Create'
           modeValue='contained'
           labelStyle={styles.buttonLabel}
-          onPress={() => handleButtonPress([roomName])}
+          onPress={() => handleButtonPress()}
           disabled={(tagsSelected.length === 0)}
         />
       </View>
