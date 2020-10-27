@@ -2,20 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import {
   Text,
   View,
-  KeyboardAvoidingView,
-  ScrollView,
-  SafeAreaView,
   TouchableHighlight
 } from 'react-native';
 import { IconButton, Title } from 'react-native-paper';
-import firestore, { firebase } from '@react-native-firebase/firestore';
-import FormInput from '../../components/FormInput';
+import firestore from '@react-native-firebase/firestore';
 import FormButton from '../../components/FormButton';
 import AutoTags from "react-native-tag-autocomplete";
 import useStatsBar from '../../utils/useStatusBar';
 import styles from './styles';
-import { height, width } from '../../components/styles';
-import { FlatList } from 'react-native-gesture-handler';
 import { AuthContext } from '../../navigation/AuthProvider';
 
 export default function AddChatScreen({ navigation }) {
@@ -86,9 +80,10 @@ export default function AddChatScreen({ navigation }) {
             createdAt: new Date().getTime(),
             system: true
           });
-          navigation.navigate('Home');
+          //navigation.navigate('Home');
         });
     }
+    //navigation.navigate('Chat', { _id: user.uid, thread: item })
   }
 
   const customFilterData = (query) => {
