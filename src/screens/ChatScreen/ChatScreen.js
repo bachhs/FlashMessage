@@ -87,7 +87,33 @@ const ChatScreen = ({ route, navigation }) => {
 
     useEffect(() => {
         getUserInfo();
-        getMessages();
+        const messagesListener = firestore()
+            .collection('threads')
+            .doc(route.params.thread._id)
+            .collection('messages')
+            .orderBy('createdAt', 'desc')
+            .onSnapshot(querySnapshot => {
+                const messages = querySnapshot.docs.map(doc => {
+                    const firebaseData = doc.data();
+
+                    const data = {
+                        _id: doc.id,
+                        text: '',
+                        createdAt: new Date().getTime(),
+                        ...firebaseData
+                    };
+
+                    if (!firebaseData.system) {
+                        data.user = {
+                            ...firebaseData.user
+                        };
+                    }
+                    return data;
+                });
+
+                setMessages(messages);
+            });
+        return () => messagesListener();
     }, []);
 
     return (
@@ -97,7 +123,6 @@ const ChatScreen = ({ route, navigation }) => {
             onInputTextChanged={setText}
             onSend={handleSend}
             user={user}
-            showUserAvatar
             renderUsernameOnMessage
         />
     );

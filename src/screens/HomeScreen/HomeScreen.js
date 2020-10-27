@@ -19,12 +19,12 @@ export default function HomeScreen({ navigation }) {
     useEffect(() => {
         const unsubscribe = firestore()
             .collection('threads')
+            .where('roomPeople', 'array-contains', user.uid)
             .orderBy('latestMessage.createdAt', 'desc')
             .onSnapshot(querySnapshot => {
                 const threads = querySnapshot.docs.map(documentSnapshot => {
                     return {
                         _id: documentSnapshot.id,
-                        // give defaults
                         name: '',
 
                         latestMessage: {
