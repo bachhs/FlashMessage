@@ -10,6 +10,8 @@ target 'FlashMessage' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNCallKeep', :path => '../node_modules/react-native-callkeep'
+
   target 'FlashMessageTests' do
     inherit! :complete
     # Pods for testing

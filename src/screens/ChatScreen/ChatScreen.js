@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
-import firestore, { firebase } from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
+import { renderMessageText } from './MessageContainer';
 import useStatsBar from '../../utils/useStatusBar';
 
 const ChatScreen = ({ route, navigation }) => {
@@ -36,35 +37,6 @@ const ChatScreen = ({ route, navigation }) => {
                 },
                 { merge: true }
             );
-    }
-
-    async function getMessages() {
-        const messagesListener = firestore()
-            .collection('threads')
-            .doc(route.params.thread._id)
-            .collection('messages')
-            .orderBy('createdAt', 'desc')
-            .onSnapshot(querySnapshot => {
-                const messages = querySnapshot.docs.map(doc => {
-                    const firebaseData = doc.data();
-
-                    const data = {
-                        _id: doc.id,
-                        text: '',
-                        createdAt: new Date().getTime(),
-                        ...firebaseData
-                    };
-
-                    if (!firebaseData.system) {
-                        data.user = {
-                            ...firebaseData.user
-                        };
-                    }
-                    return data;
-                });
-
-                setMessages(messages);
-            });
     }
 
     async function getUserInfo() {
@@ -122,6 +94,7 @@ const ChatScreen = ({ route, navigation }) => {
             text={text}
             onInputTextChanged={setText}
             onSend={handleSend}
+            //renderMessageText={renderMessageText}
             user={user}
             renderUsernameOnMessage
         />

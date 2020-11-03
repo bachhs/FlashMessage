@@ -59,7 +59,7 @@ export default function HomeScreen({ navigation }) {
                 ItemSeparatorComponent={() => <Divider />}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Chat', { _id: user.uid, thread: item })}
+                        onPress={() => navigation.navigate('Chat', { name: item.name, _id: user.uid, thread: item }, navigation)}
                     >
                         <List.Item
                             title={item.name}
