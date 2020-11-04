@@ -51,7 +51,7 @@ function ChatApp() {
         name='Chat'
         component={ChatScreen}
         options={({ route, navigation }) => ({
-          title: route.params.name,
+          title: route.params.thread.name,
           headerRight: () => (
             <IconButton
               icon='message-plus'

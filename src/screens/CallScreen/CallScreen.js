@@ -17,9 +17,7 @@ const configuration = {
 
 export default function CallScreen({ route, navigation }) {
 
-    useEffect(() => {
-        startLocalStream();
-    }, []);
+    const [calling, setCalling] = useState(true);
 
     function onBackPress() {
         if (cachedLocalPC) {
@@ -64,7 +62,6 @@ export default function CallScreen({ route, navigation }) {
     };
 
     const startCall = async id => {
-        console.log(route);
         const localPC = new RTCPeerConnection(configuration);
         localPC.addStream(localStream);
 
@@ -111,6 +108,51 @@ export default function CallScreen({ route, navigation }) {
         setCachedLocalPC(localPC);
     };
 
+    const joinCall = async id => {
+        const roomRef = await firestore().collection('rooms').doc(id);
+        const roomSnapshot = await roomRef.get();
+
+        if (!roomSnapshot.exists) return
+        const localPC = new RTCPeerConnection(configuration);
+        localPC.addStream(localStream);
+
+        const calleeCandidatesCollection = roomRef.collection('calleeCandidates');
+        localPC.onicecandidate = e => {
+            if (!e.candidate) {
+                console.log('Got final candidate!');
+                return;
+            }
+            calleeCandidatesCollection.add(e.candidate.toJSON());
+        };
+
+        localPC.onaddstream = e => {
+            if (e.stream && remoteStream !== e.stream) {
+                console.log('RemotePC received the stream join', e.stream);
+                setRemoteStream(e.stream);
+            }
+        };
+
+        const offer = roomSnapshot.data().offer;
+        await localPC.setRemoteDescription(new RTCSessionDescription(offer));
+
+        const answer = await localPC.createAnswer();
+        await localPC.setLocalDescription(answer);
+
+        const roomWithAnswer = { answer };
+        await roomRef.update(roomWithAnswer);
+
+        roomRef.collection('callerCandidates').onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(async change => {
+                if (change.type === 'added') {
+                    let data = change.doc.data();
+                    await localPC.addIceCandidate(new RTCIceCandidate(data));
+                }
+            });
+        });
+
+        setCachedLocalPC(localPC);
+    };
+
     const switchCamera = () => {
         localStream.getVideoTracks().forEach(track => track._switchCamera());
     };
@@ -130,8 +172,8 @@ export default function CallScreen({ route, navigation }) {
 
     return (
         <>
-            <Text style={styles.heading} >Call Screen</Text>
-            <Text style={styles.heading} >Room : {route.params.name}</Text>
+            <Text style={styles.heading}>Call Screen</Text>
+            <Text style={styles.heading}>Room: {route.params.thread.name}</Text>
 
             <View style={styles.callButtons} >
                 <View styles={styles.buttonContainer} >
@@ -139,7 +181,9 @@ export default function CallScreen({ route, navigation }) {
                 </View>
                 <View styles={styles.buttonContainer} >
                     {!localStream && <Button title='Click to start stream' onPress={startLocalStream} />}
-                    {localStream && <Button title='Click to start call' onPress={() => startCall(route.params._id)} disabled={!!remoteStream} />}
+                    {localStream && !calling && <Button title='Click to start call' onPress={() => startCall(route.params.thread._id)} disabled={!!remoteStream} />}
+                    {localStream && calling && <Button title='Click to join call' onPress={() => joinCall(route.params.thread._id)} disabled={!!remoteStream} />}
+
                 </View>
             </View>
 

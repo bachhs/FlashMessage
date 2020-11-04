@@ -42,13 +42,13 @@ const ChatScreen = ({ route, navigation }) => {
     async function getUserInfo() {
         let userInformation = await firestore()
             .collection('users')
-            .where('_id', '==', route.params._id)
+            .where('_id', '==', route.params.uid)
             .get()
             .then(querySnapshot => {
                 let userInfo;
                 querySnapshot.forEach(documentSnapshot => {
                     userInfo = {
-                        "_id": documentSnapshot.data()._id, "name": documentSnapshot.data().name,
+                        "_id": documentSnapshot.data().uid, "name": documentSnapshot.data().name,
                         "avatar": documentSnapshot.data().avatar
                     };
                 })
@@ -61,7 +61,7 @@ const ChatScreen = ({ route, navigation }) => {
         getUserInfo();
         const messagesListener = firestore()
             .collection('threads')
-            .doc(route.params.thread._id)
+            .doc(route.params.thread.uid)
             .collection('messages')
             .orderBy('createdAt', 'desc')
             .onSnapshot(querySnapshot => {
