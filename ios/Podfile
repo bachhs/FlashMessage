@@ -12,6 +12,8 @@ target 'FlashMessage' do
 
   pod 'RNCallKeep', :path => '../node_modules/react-native-callkeep'
 
+  pod 'react-native-jitsi-meet', :path => '../node_modules/react-native-jitsi-meet'
+
   target 'FlashMessageTests' do
     inherit! :complete
     # Pods for testing
