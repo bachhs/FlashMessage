@@ -12,11 +12,31 @@ export default function HomeScreen({ navigation }) {
     const { user } = useContext(AuthContext);
     const [threads, setThreads] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [userInfo, setUserInfo] = useState();
 
     /**
      * Fetch threads from Firestore
      */
+    async function getUserInfo() {
+        let userInformation = await firestore()
+            .collection('users')
+            .where('_id', '==', user.uid)
+            .get()
+            .then(querySnapshot => {
+                let userInfo;
+                querySnapshot.forEach(documentSnapshot => {
+                    userInfo = {
+                        "_id": documentSnapshot.data()._id, "name": documentSnapshot.data().name,
+                        "avatar": documentSnapshot.data().avatar
+                    };
+                })
+                return userInfo;
+            });
+        setUserInfo(userInformation);
+    }
+
     useEffect(() => {
+        getUserInfo();
         const unsubscribe = firestore()
             .collection('threads')
             .where('roomPeople', 'array-contains', user.uid)
@@ -59,7 +79,7 @@ export default function HomeScreen({ navigation }) {
                 ItemSeparatorComponent={() => <Divider />}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Chat', { thread: item, uid: user.uid }, navigation)}
+                        onPress={() => navigation.navigate('Chat', { thread: item, user: userInfo }, navigation)}
                     >
                         <List.Item
                             title={item.name}

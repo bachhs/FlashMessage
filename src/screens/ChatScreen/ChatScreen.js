@@ -10,7 +10,6 @@ const ChatScreen = ({ route, navigation }) => {
 
     const [text, setText] = useState('');
     const [messages, setMessages] = useState([]);
-    const [user, setUser] = useState();
 
     async function handleSend(messages) {
         const text = messages[0].text;
@@ -22,7 +21,7 @@ const ChatScreen = ({ route, navigation }) => {
             .add({
                 text,
                 createdAt: new Date().getTime(),
-                user: user
+                user: route.params.user
             });
 
         await firestore()
@@ -38,30 +37,10 @@ const ChatScreen = ({ route, navigation }) => {
                 { merge: true }
             );
     }
-
-    async function getUserInfo() {
-        let userInformation = await firestore()
-            .collection('users')
-            .where('_id', '==', route.params.uid)
-            .get()
-            .then(querySnapshot => {
-                let userInfo;
-                querySnapshot.forEach(documentSnapshot => {
-                    userInfo = {
-                        "_id": documentSnapshot.data().uid, "name": documentSnapshot.data().name,
-                        "avatar": documentSnapshot.data().avatar
-                    };
-                })
-                return userInfo;
-            });
-        setUser(userInformation);
-    }
-
     useEffect(() => {
-        getUserInfo();
         const messagesListener = firestore()
             .collection('threads')
-            .doc(route.params.thread.uid)
+            .doc(route.params.thread._id)
             .collection('messages')
             .orderBy('createdAt', 'desc')
             .onSnapshot(querySnapshot => {
@@ -95,7 +74,7 @@ const ChatScreen = ({ route, navigation }) => {
             onInputTextChanged={setText}
             onSend={handleSend}
             //renderMessageText={renderMessageText}
-            user={user}
+            user={route.params.user}
             renderUsernameOnMessage
         />
     );
