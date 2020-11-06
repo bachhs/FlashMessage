@@ -66,6 +66,7 @@ function ChatApp() {
       <ChatAppStack.Screen
         name='Call'
         component={CallScreen}
+        options={{ headerShown: false }}
       />
     </ChatAppStack.Navigator>
   );

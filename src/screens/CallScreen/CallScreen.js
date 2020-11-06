@@ -45,17 +45,17 @@ export default function CallScreen({ route, navigation }) {
     function onConferenceTerminated(nativeEvent) {
         /* Conference terminated event */
         console.log("onConferenceTerminated");
-        navigation.goBack();
+        //navigation.goBack();
     }
 
     function onConferenceJoined(nativeEvent) {
         /* Conference joined event */
-        console.log("onConferenceJoined")
+        console.log("onConferenceJoined");
     }
 
     function onConferenceWillJoin(nativeEvent) {
         /* Conference will join event */
-        console.log("onConferenceWillJoin")
+        console.log("onConferenceWillJoin");
     }
     return (
         <JitsiMeetView
