@@ -3,26 +3,14 @@ xmlns:tools="http://schemas.android.com/tools"
   package="com.flashmessage">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus"/>
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <permission android:name="${applicationId}.permission.JITSI_BROADCAST"
-        android:label="Jitsi Meet Event Broadcast"
-        android:protectionLevel="normal"></permission>
-    <uses-permission android:name="${applicationId}.permission.JITSI_BROADCAST"/>
     
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
-      android:allowBackup="false"
+      android:allowBackup="true"
+      tools:replace="android:allowBackup"
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"
@@ -36,7 +24,6 @@ xmlns:tools="http://schemas.android.com/tools"
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-      <activity android:name="com.reactnativejitsimeet.JitsiMeetNavigatorActivity" />
     </application>
 
 </manifest>
