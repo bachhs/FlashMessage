@@ -27,7 +27,10 @@ export default function HomeScreen({ navigation }) {
                 querySnapshot.forEach(documentSnapshot => {
                     userInfo = {
                         "_id": documentSnapshot.data()._id, "name": documentSnapshot.data().name,
-                        "avatar": documentSnapshot.data().avatar
+                        "avatar": documentSnapshot.data().avatar,
+                        "email": documentSnapshot.data().email,
+                        "location": documentSnapshot.data().location,
+                        "phoneNumber": documentSnapshot.data().phoneNumber,
                     };
                 })
                 return userInfo;

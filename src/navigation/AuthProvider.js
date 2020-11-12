@@ -56,6 +56,8 @@ export const AuthProvider = ({ children }) => {
                 avatar: 'https://i.pinimg.com/originals/b9/58/2d/b9582d806f57b4d8aab0655759d3cb34.jpg',
                 email,
                 birthDay: firestore.Timestamp.now(),
+                phoneNumber: '',
+                location: '',
               };
               const usersRef = firestore().collection('users');
               usersRef
