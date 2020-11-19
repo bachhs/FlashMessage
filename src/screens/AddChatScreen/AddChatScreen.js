@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import {
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  ImageBackground
 } from 'react-native';
 import { IconButton, Title } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
@@ -11,6 +12,7 @@ import AutoTags from "react-native-tag-autocomplete";
 import useStatsBar from '../../utils/useStatusBar';
 import styles from './styles';
 import { AuthContext } from '../../navigation/AuthProvider';
+import bgimage from '../LoginScreen/chatscreen.jpg';
 
 export default function AddChatScreen({ navigation }) {
   useStatsBar('light-content');
@@ -151,37 +153,39 @@ export default function AddChatScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.rootContainer}>
-      <View style={styles.closeButtonContainer}>
-        <IconButton
-          icon='close-circle'
-          size={36}
-          color='#0c8af9'
-          onPress={() => navigation.goBack()}
-        />
+    <ImageBackground source={bgimage} blurRadius={2.5} style={styles.container}>
+      <View style={styles.rootContainer}>
+        <View style={styles.closeButtonContainer}>
+          <IconButton
+            icon='close-circle'
+            size={40}
+            color='white'
+            onPress={() => navigation.goBack()}
+          />
+        </View>
+        <View style={styles.innerContainer}>
+          <Title style={styles.title}>Create a new chat room</Title>
+          <AutoTags
+            suggestions={suggestions}
+            tagsSelected={tagsSelected}
+            handleAddition={handleAddition}
+            handleDelete={handleDelete}
+            placeholder="Add a contact.."
+            filterData={customFilterData}
+            renderSuggestion={customRenderSuggestion}
+            renderTags={customRenderTags}
+            onCustomTagCreated={onCustomTagCreated}
+            createTagOnSpace
+          />
+          <FormButton
+            title='Create'
+            modeValue='contained'
+            labelStyle={styles.buttonLabel}
+            onPress={() => handleButtonPress()}
+            disabled={(tagsSelected.length === 0)}
+          />
+        </View>
       </View>
-      <View style={styles.innerContainer}>
-        <Title style={styles.title}>Create a new chat room</Title>
-        <AutoTags
-          suggestions={suggestions}
-          tagsSelected={tagsSelected}
-          handleAddition={handleAddition}
-          handleDelete={handleDelete}
-          placeholder="Add a contact.."
-          filterData={customFilterData}
-          renderSuggestion={customRenderSuggestion}
-          renderTags={customRenderTags}
-          onCustomTagCreated={onCustomTagCreated}
-          createTagOnSpace
-        />
-        <FormButton
-          title='Create'
-          modeValue='contained'
-          labelStyle={styles.buttonLabel}
-          onPress={() => handleButtonPress()}
-          disabled={(tagsSelected.length === 0)}
-        />
-      </View>
-    </View>
+    </ImageBackground>
   );
 }
