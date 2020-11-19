@@ -25,14 +25,7 @@ export const renderActions = (props) => (
       marginRight: 4,
       marginBottom: 0,
     }}
-    icon={() => (
-      <Image
-        style={{ width: 32, height: 32 }}
-        source={{
-          uri: 'https://placeimg.com/32/32/any',
-        }}
-      />
-    )}
+
     options={{
       'Choose From Library': () => {
         console.log('Choose From Library');
@@ -73,11 +66,5 @@ export const renderSend = (props) => (
       marginHorizontal: 4,
     }}
   >
-    <Image
-      style={{ width: 32, height: 32 }}
-      source={{
-        uri: 'https://placeimg.com/32/32/any',
-      }}
-    />
   </Send>
 );
