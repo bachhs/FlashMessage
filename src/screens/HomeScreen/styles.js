@@ -9,18 +9,18 @@ export default StyleSheet.create({
     },
     listTitle: {
         fontSize: 25,
-        color: 'white'
+        color: 'black'
     },
     listDescription: {
         fontSize: 16,
-        color: 'white'
+        color: 'black'
     },
     bgstlye: {
-        backgroundColor: '#13141566',
-        marginBottom: 4
+        //backgroundColor: '#13141566',
+        //marginBottom: 4
     },
     iconstyle: {
-        backgroundColor: 'whitesmoke',
+        backgroundColor: 'orange',
         borderRadius: 40,
         justifyContent: 'center',
         marginTop: 12
