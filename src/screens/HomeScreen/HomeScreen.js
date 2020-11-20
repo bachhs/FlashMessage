@@ -14,28 +14,7 @@ export default function HomeScreen({ navigation }) {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState();
 
-    async function getUserInfo() {
-        let userInformation = await firestore()
-            .collection('users')
-            .where('_id', '==', user.uid)
-            .get()
-            .then(querySnapshot => {
-                let userInfo;
-                querySnapshot.forEach(documentSnapshot => {
-                    userInfo = {
-                        "_id": documentSnapshot.data()._id,
-                        "name": documentSnapshot.data().name,
-                        "avatar": documentSnapshot.data().avatar,
-                        "email": documentSnapshot.data().email
-                    };
-                })
-                return userInfo;
-            });
-        setUserInfo(userInformation);
-    }
-
     useEffect(() => {
-        getUserInfo();
         const unsubscribe = firestore()
             .collection('threads')
             .where('roomPeople', 'array-contains', user.uid)
