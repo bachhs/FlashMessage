@@ -12,7 +12,7 @@ import AutoTags from "react-native-tag-autocomplete";
 import useStatsBar from '../../utils/useStatusBar';
 import styles from './styles';
 import { AuthContext } from '../../navigation/AuthProvider';
-import bgimage from '../LoginScreen/chatscreen.jpg';
+import bgimage from '../LoginScreen/bg.png';
 
 export default function AddChatScreen({ navigation }) {
   useStatsBar('light-content');

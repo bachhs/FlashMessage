@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, FlatList, TouchableOpacity } from 'react-native';
 import { List, Divider } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import Loading from '../../components/Loading';
 import useStatsBar from '../../utils/useStatusBar';
 import styles from './styles';
 import { AuthContext } from '../../navigation/AuthProvider';
-import bgimage from '../LoginScreen/bg.png';
 
 export default function HomeScreen({ navigation }) {
     useStatsBar('light-content');
@@ -72,30 +71,28 @@ export default function HomeScreen({ navigation }) {
     }
 
     return (
-        <ImageBackground source={bgimage} blurRadius={2.5} style={styles.container}>
-            <View>
-                <FlatList
-                    data={threads}
-                    keyExtractor={item => item._id}
-                    ItemSeparatorComponent={() => <Divider />}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('Chat', { thread: item, user: userInfo }, navigation)}
-                        >
-                            <List.Item
-                                style={styles.bgstlye}
-                                title={item.name}
-                                description={item.latestMessage.text}
-                                titleNumberOfLines={1}
-                                titleStyle={styles.listTitle}
-                                descriptionStyle={styles.listDescription}
-                                descriptionNumberOfLines={1}
-                                left={props => <List.Icon {...props} style={styles.iconstyle} icon="account" />}
-                            />
-                        </TouchableOpacity>
-                    )}
-                />
-            </View>
-        </ImageBackground>
+        <View>
+            <FlatList
+                data={threads}
+                keyExtractor={item => item._id}
+                ItemSeparatorComponent={() => <Divider />}
+                renderItem={({ item }) => (
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Chat', { thread: item, user: userInfo }, navigation)}
+                    >
+                        <List.Item
+                            style={styles.bgstlye}
+                            title={item.name}
+                            description={item.latestMessage.text}
+                            titleNumberOfLines={1}
+                            titleStyle={styles.listTitle}
+                            descriptionStyle={styles.listDescription}
+                            descriptionNumberOfLines={1}
+                            left={props => <List.Icon {...props} style={styles.iconstyle} icon="account" />}
+                        />
+                    </TouchableOpacity>
+                )}
+            />
+        </View>
     );
 }

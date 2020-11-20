@@ -18,16 +18,17 @@ function ChatApp() {
     <ChatAppStack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#0c8af9'
+          backgroundColor: '#0c8af9',
+          opacity: 0.9
         },
         headerTintColor: '#ffffff',
         headerTitleStyle: {
-          fontSize: 20
+          fontSize: 25
         }
       }}
     >
       <ChatAppStack.Screen
-        name='Home'
+        name='Chats'
         component={HomeScreen}
         options={({ navigation }) => ({
           headerRight: () => (
@@ -40,12 +41,13 @@ function ChatApp() {
           ),
           headerLeft: () => (
             <IconButton
-              icon='logout-variant'
-              size={22}
-              color='#ffffff'
-              onPress={() => navigation.navigate('Profile', user.uid)}
+              icon='account-circle'
+              size={35}
+              color='yellow'
+              onPress={() => logout()}
             />
-          )
+          ),
+
         })}
       />
       <ChatAppStack.Screen
