@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import firestore from '@react-native-firebase/firestore';
-import { renderMessageText } from './MessageContainer';
 import useStatsBar from '../../utils/useStatusBar';
 
 const ChatScreen = ({ route, navigation }) => {
@@ -73,7 +72,6 @@ const ChatScreen = ({ route, navigation }) => {
             text={text}
             onInputTextChanged={setText}
             onSend={handleSend}
-            //renderMessageText={renderMessageText}
             user={route.params.user}
             renderUsernameOnMessage
         />

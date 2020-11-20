@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { ToastAndroid } from "react-native";
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -31,7 +32,6 @@ export const AuthProvider = ({ children }) => {
                     alert("User does not exist anymore.")
                     return;
                   }
-                  const user = firestoreDocument.data()
                 })
                 .catch(error => {
                   alert(error)
@@ -39,7 +39,8 @@ export const AuthProvider = ({ children }) => {
             })
             .catch(error => {
               alert(error);
-            })
+            });
+          ToastAndroid.show("Welcome back!", ToastAndroid.SHORT);
         },
         register: (email, password, confirmPassword, name) => {
           if (password !== confirmPassword) {
@@ -49,15 +50,18 @@ export const AuthProvider = ({ children }) => {
           auth()
             .createUserWithEmailAndPassword(email, password)
             .then((response) => {
+              const update = {
+                displayName: name,
+                photoURL: 'https://i.pinimg.com/originals/b9/58/2d/b9582d806f57b4d8aab0655759d3cb34.jpg',
+              };
+              auth().currentUser.updateProfile(update);
               const uid = response.user.uid;
+              response.user.updateProfile
               const data = {
                 _id: uid,
                 name,
                 avatar: 'https://i.pinimg.com/originals/b9/58/2d/b9582d806f57b4d8aab0655759d3cb34.jpg',
-                email,
-                birthDay: firestore.Timestamp.now(),
-                phoneNumber: '',
-                location: '',
+                email
               };
               const usersRef = firestore().collection('users');
               usersRef
@@ -66,6 +70,7 @@ export const AuthProvider = ({ children }) => {
                 .catch((error) => {
                   alert(error)
                 });
+              ToastAndroid.show("Register Successfully!", ToastAndroid.SHORT);
             })
             .catch((error) => {
               alert(error);

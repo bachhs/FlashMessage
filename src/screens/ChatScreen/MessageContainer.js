@@ -6,7 +6,6 @@ export const renderMessageText = (props) => {
     const {
         currentMessage,
     } = props;
-    console.log(currentMessage)
     const { text: currText } = currentMessage;
     if (currText.indexOf('[x]') === -1) {
         return <MessageText {...props} />;

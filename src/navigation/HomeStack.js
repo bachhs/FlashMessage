@@ -7,13 +7,12 @@ import ChatScreen from '../screens/ChatScreen/ChatScreen';
 import CallScreen from '../screens/CallScreen/CallScreen';
 import { AuthContext } from './AuthProvider';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
-import EditProfileScreen from '../screens/ProfileScreen/EditProfileScreen';
 
 const ChatAppStack = createStackNavigator();
 const ModalStack = createStackNavigator();
 
 function ChatApp() {
-  const { logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
   return (
     <ChatAppStack.Navigator
@@ -44,10 +43,15 @@ function ChatApp() {
               icon='logout-variant'
               size={22}
               color='#ffffff'
-              onPress={() => logout()}
+              onPress={() => navigation.navigate('Profile', user.uid)}
             />
           )
         })}
+      />
+      <ChatAppStack.Screen
+        name='Profile'
+        component={ProfileScreen}
+        options={{ headerShown: false }}
       />
       <ChatAppStack.Screen
         name='Chat'
@@ -60,7 +64,7 @@ function ChatApp() {
               size={22}
               color='#ffffff'
               onPress={() =>
-                navigation.navigate('Profile', route.params)
+                navigation.navigate('Call', route.params)
               }
             />
           )
@@ -71,34 +75,6 @@ function ChatApp() {
         component={CallScreen}
         options={{ headerShown: false }}
       />
-
-      <ChatAppStack.Screen
-        name='Profile'
-        component={ProfileScreen}
-        options={({ route, navigation }) => ({
-          title: route.params.thread.name,
-          headerRight: () => (
-            <IconButton
-              icon='message-plus'
-              size={22}
-              color='#ffffff'
-              onPress={() =>
-                navigation.navigate('EditProfile', route.params)
-              }
-            />
-          )
-        })}
-      />
-
-      <ChatAppStack.Screen
-        name='EditProfile'
-        component={EditProfileScreen}
-        options={({ route }) => ({
-          title: route.params.thread.name,
-        })
-        }
-      />
-
     </ChatAppStack.Navigator>
   );
 }

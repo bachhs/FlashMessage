@@ -15,9 +15,6 @@ export default function HomeScreen({ navigation }) {
     const [loading, setLoading] = useState(true);
     const [userInfo, setUserInfo] = useState();
 
-    /**
-     * Fetch threads from Firestore
-     */
     async function getUserInfo() {
         let userInformation = await firestore()
             .collection('users')
@@ -27,11 +24,10 @@ export default function HomeScreen({ navigation }) {
                 let userInfo;
                 querySnapshot.forEach(documentSnapshot => {
                     userInfo = {
-                        "_id": documentSnapshot.data()._id, "name": documentSnapshot.data().name,
+                        "_id": documentSnapshot.data()._id,
+                        "name": documentSnapshot.data().name,
                         "avatar": documentSnapshot.data().avatar,
-                        "email": documentSnapshot.data().email,
-                        "location": documentSnapshot.data().location,
-                        "phoneNumber": documentSnapshot.data().phoneNumber,
+                        "email": documentSnapshot.data().email
                     };
                 })
                 return userInfo;
