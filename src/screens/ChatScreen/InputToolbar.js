@@ -13,31 +13,6 @@ export const renderInputToolbar = (props) => (
   />
 );
 
-export const renderActions = (props) => (
-  <Actions
-    {...props}
-    containerStyle={{
-      width: 44,
-      height: 44,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginLeft: 4,
-      marginRight: 4,
-      marginBottom: 0,
-    }}
-
-    options={{
-      'Choose From Library': () => {
-        console.log('Choose From Library');
-      },
-      Cancel: () => {
-        console.log('Cancel');
-      },
-    }}
-    optionTintColor="#222B45"
-  />
-);
-
 export const renderComposer = (props) => (
   <Composer
     {...props}
@@ -59,7 +34,7 @@ export const renderSend = (props) => (
     {...props}
     disabled={!props.text}
     containerStyle={{
-      width: 44,
+      width: 60,
       height: 44,
       alignItems: 'center',
       justifyContent: 'center',

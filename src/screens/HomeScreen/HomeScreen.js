@@ -12,7 +12,6 @@ export default function HomeScreen({ navigation }) {
     const { user } = useContext(AuthContext);
     const [threads, setThreads] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [userInfo, setUserInfo] = useState();
 
     useEffect(() => {
         const unsubscribe = firestore()
@@ -57,7 +56,13 @@ export default function HomeScreen({ navigation }) {
                 ItemSeparatorComponent={() => <Divider />}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Chat', { thread: item, user: userInfo }, navigation)}
+                        onPress={() => navigation.navigate('Chat', {
+                            thread: item, user: {
+                                _id: user.uid,
+                                name: user.displayName,
+                                avatar: user.photoURL
+                            }
+                        }, navigation)}
                     >
                         <List.Item
                             style={styles.bgstlye}

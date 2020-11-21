@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { ModalPicker } from 'emoji-mart-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import firestore from '@react-native-firebase/firestore';
 import useStatsBar from '../../utils/useStatusBar';
+import { renderInputToolbar, renderComposer, renderSend } from './InputToolbar';
+import { renderMessageText } from './MessageContainer';
+import { InputToolbar, Actions, Composer, Send } from 'react-native-gifted-chat';
 
 const ChatScreen = ({ route, navigation }) => {
 
@@ -9,6 +13,7 @@ const ChatScreen = ({ route, navigation }) => {
 
     const [text, setText] = useState('');
     const [messages, setMessages] = useState([]);
+    const [emoji, setEmoji] = useState(false);
 
     async function handleSend(messages) {
         const text = messages[0].text;
@@ -67,14 +72,25 @@ const ChatScreen = ({ route, navigation }) => {
     }, []);
 
     return (
-        <GiftedChat
-            messages={messages}
-            text={text}
-            onInputTextChanged={setText}
-            onSend={handleSend}
-            user={route.params.user}
-            renderUsernameOnMessage
-        />
+        <>
+            <GiftedChat
+                messages={messages}
+                text={text}
+                onInputTextChanged={setText}
+                onSend={handleSend}
+                user={route.params.user}
+                renderUsernameOnMessage
+            />
+            <ModalPicker
+                set='facebook'
+                isVisible={emoji}
+                showCloseButton
+                onPressClose={() => {
+                    setEmoji(false);
+                }}
+                onSelect={(emoji) => setText(text + emoji.colons)}
+            />
+        </>
     );
 };
 

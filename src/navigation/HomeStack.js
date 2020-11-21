@@ -28,7 +28,7 @@ function ChatApp() {
       }}
     >
       <ChatAppStack.Screen
-        name='Chats'
+        name='Home'
         component={HomeScreen}
         options={({ navigation }) => ({
           headerRight: () => (
