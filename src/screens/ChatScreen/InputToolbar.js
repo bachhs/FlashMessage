@@ -1,13 +1,15 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { InputToolbar, Actions, Composer, Send } from 'react-native-gifted-chat';
+import { width } from '../../components/styles';
 
 export const renderInputToolbar = (props) => (
   <InputToolbar
     {...props}
     containerStyle={{
-      backgroundColor: '#222B45',
-      paddingTop: 6,
+      backgroundColor: 'whitesmoke',
+      paddingTop: 2,
+      borderTopColor: 'whitesmoke'
     }}
     primaryStyle={{ alignItems: 'center' }}
   />
@@ -18,13 +20,14 @@ export const renderComposer = (props) => (
     {...props}
     textInputStyle={{
       color: '#222B45',
-      backgroundColor: '#EDF1F7',
-      borderWidth: 1,
-      borderRadius: 5,
-      borderColor: '#E4E9F2',
-      paddingTop: 8.5,
+      backgroundColor: '#ece9e9',
+      borderWidth: 0.8,
+      borderBottomEndRadius: 10,
+      borderRadius: 30,
+      borderColor: 'yellow',
+      paddingTop: 15,
       paddingHorizontal: 12,
-      marginLeft: 0,
+      marginRight: 60
     }}
   />
 );
@@ -38,8 +41,9 @@ export const renderSend = (props) => (
       height: 44,
       alignItems: 'center',
       justifyContent: 'center',
-      marginHorizontal: 4,
+      marginHorizontal: 2,
     }}
+
   >
   </Send>
 );

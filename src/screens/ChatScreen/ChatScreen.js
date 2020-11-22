@@ -18,12 +18,13 @@ const ChatScreen = ({ route, navigation }) => {
         <Actions
             {...props}
             containerStyle={{
-                width: 44,
-                height: 44,
+                width: 30,
+                height: 30,
                 alignItems: 'center',
                 justifyContent: 'center',
+                paddingLeft: 10,
                 marginLeft: 4,
-                marginRight: 4,
+                marginRight: 1,
                 marginBottom: 0,
             }}
             onPressActionButton={() => setEmoji(true)
