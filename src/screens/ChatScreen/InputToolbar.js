@@ -27,7 +27,7 @@ export const renderComposer = (props) => (
       borderColor: 'yellow',
       paddingTop: 15,
       paddingHorizontal: 12,
-      marginRight: 60
+      marginRight: width / 6
     }}
   />
 );
@@ -37,10 +37,12 @@ export const renderSend = (props) => (
     {...props}
     disabled={!props.text}
     containerStyle={{
+      position: 'absolute',
+      right: 0,
       width: 60,
       height: 44,
-      alignItems: 'center',
-      justifyContent: 'center',
+      marginTop: 10,
+      justifyContent: 'flex-end',
       marginHorizontal: 2,
     }}
 

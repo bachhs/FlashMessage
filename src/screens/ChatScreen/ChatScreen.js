@@ -3,7 +3,7 @@ import { ModalPicker } from 'emoji-mart-native';
 import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import firestore from '@react-native-firebase/firestore';
 import useStatsBar from '../../utils/useStatusBar';
-import { Image } from 'react-native';
+import { renderBubble } from './MessageContainer';
 import { renderInputToolbar, renderComposer, renderSend } from './InputToolbar';
 
 const ChatScreen = ({ route, navigation }) => {
@@ -96,12 +96,14 @@ const ChatScreen = ({ route, navigation }) => {
                 text={text}
                 onInputTextChanged={setText}
                 onSend={handleSend}
+                renderBubble={renderBubble}
                 user={route.params.user}
                 renderUsernameOnMessage
                 renderInputToolbar={renderInputToolbar}
                 renderActions={renderActions}
                 renderComposer={renderComposer}
                 renderSend={renderSend}
+                alwaysShowSend={true}
             />
             <ModalPicker
                 set='facebook'
