@@ -62,9 +62,10 @@ function ChatApp() {
           title: route.params.thread.name,
           headerRight: () => (
             <IconButton
-              icon='message-plus'
-              size={22}
+              icon='video'
+              size={26}
               color='#ffffff'
+              style={{ marginRight: 10 }}
               onPress={() =>
                 navigation.navigate('Call', route.params)
               }

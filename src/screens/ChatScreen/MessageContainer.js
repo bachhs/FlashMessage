@@ -2,53 +2,6 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Switch } from 'react-native';
 import { GiftedChat, MessageText, Bubble } from 'react-native-gifted-chat';
 
-const messages = [
-    {
-        _id: 1,
-        text: 'Sed efficitur varius dignissim.',
-        createdAt: new Date(),
-        user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-        },
-    },
-    {
-        _id: 2,
-        text: '[x] Lorem ipsum\ndolor sit amet',
-        createdAt: new Date(),
-        user: {
-            _id: 1,
-        },
-    },
-    {
-        _id: 3,
-        text: 'Vivamus cursus nisi sit amet risus cursus fringilla.',
-        createdAt: new Date(),
-        user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-        },
-    },
-    {
-        _id: 4,
-        text: '[x] Lorem ipsum',
-        createdAt: new Date(),
-        user: {
-            _id: 1,
-        },
-    },
-    {
-        _id: 5,
-        text: 'Aliquam erat volutpat.',
-        createdAt: new Date(),
-        user: {
-            _id: 1,
-        },
-    },
-];
-
 const CustomMessageText = (props) => {
     const {
         currentMessage,

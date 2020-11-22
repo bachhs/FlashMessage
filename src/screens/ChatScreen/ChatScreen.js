@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ModalPicker } from 'emoji-mart-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import firestore from '@react-native-firebase/firestore';
 import useStatsBar from '../../utils/useStatusBar';
 import { renderInputToolbar, renderComposer, renderSend } from './InputToolbar';
 import { renderMessageText } from './MessageContainer';
-import { InputToolbar, Actions, Composer, Send } from 'react-native-gifted-chat';
+import { InputToolbar, Composer, Send } from 'react-native-gifted-chat';
 
 const ChatScreen = ({ route, navigation }) => {
 
@@ -14,6 +14,31 @@ const ChatScreen = ({ route, navigation }) => {
     const [text, setText] = useState('');
     const [messages, setMessages] = useState([]);
     const [emoji, setEmoji] = useState(false);
+
+    function renderActions(props) {
+        <Actions
+            {...props}
+            containerStyle={{
+                width: 44,
+                height: 44,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginLeft: 4,
+                marginRight: 4,
+                marginBottom: 0,
+            }}
+            icon={() => (
+                <Image
+                    style={{ width: 32, height: 32 }}
+                    source={{
+                        uri: 'https://placeimg.com/32/32/any',
+                    }}
+                />
+            )}
+            onSelect={() => setEmoji(true)}
+            optionTintColor="#222B45"
+        />
+    }
 
     async function handleSend(messages) {
         const text = messages[0].text;
@@ -80,6 +105,10 @@ const ChatScreen = ({ route, navigation }) => {
                 onSend={handleSend}
                 user={route.params.user}
                 renderUsernameOnMessage
+                renderInputToolbar={renderInputToolbar}
+                renderComposer={renderComposer}
+                renderActions={renderActions}
+                renderSend={renderSend}
             />
             <ModalPicker
                 set='facebook'
