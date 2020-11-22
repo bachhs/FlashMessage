@@ -24,7 +24,7 @@ export const renderComposer = (props) => (
       borderWidth: 0.8,
       borderBottomEndRadius: 10,
       borderRadius: 30,
-      borderColor: 'yellow',
+      borderColor: '#dadada',
       paddingTop: 15,
       paddingHorizontal: 12,
       marginRight: width / 6
