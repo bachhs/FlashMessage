@@ -7,6 +7,7 @@ import ChatScreen from '../screens/ChatScreen/ChatScreen';
 import CallScreen from '../screens/CallScreen/CallScreen';
 import { AuthContext } from './AuthProvider';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+import EditProfileScreen from '../screens/ProfileScreen/EditProfileScreen';
 
 const ChatAppStack = createStackNavigator();
 const ModalStack = createStackNavigator();
@@ -44,7 +45,7 @@ function ChatApp() {
               icon='account-circle'
               size={35}
               color='yellow'
-              onPress={() => logout()}
+              onPress={() => navigation.navigate('Profile', user.uid)}
             />
           ),
 
@@ -53,7 +54,12 @@ function ChatApp() {
       <ChatAppStack.Screen
         name='Profile'
         component={ProfileScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: true }}
+      />
+      <ChatAppStack.Screen
+        name='EditProfile'
+        component={EditProfileScreen}
+        options={{ headerShown: true }}
       />
       <ChatAppStack.Screen
         name='Chat'

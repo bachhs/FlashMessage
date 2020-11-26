@@ -104,6 +104,9 @@ const ChatScreen = ({ route, navigation }) => {
                 renderComposer={renderComposer}
                 renderSend={renderSend}
                 alwaysShowSend={true}
+                onPressAvatar={(user) => {
+                    navigation.navigate('Profile', user._id);
+                }}
             />
             <ModalPicker
                 set='facebook'

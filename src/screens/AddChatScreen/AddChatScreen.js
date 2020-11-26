@@ -82,10 +82,9 @@ export default function AddChatScreen({ navigation }) {
             createdAt: new Date().getTime(),
             system: true
           });
-          //navigation.navigate('Home');
         });
     }
-    //navigation.navigate('Chat', { _id: user.uid, thread: item })
+    navigation.navigate('Home');
   }
 
   const customFilterData = (query) => {

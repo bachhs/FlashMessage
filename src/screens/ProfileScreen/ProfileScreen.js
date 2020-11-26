@@ -1,22 +1,37 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, FlatList, TouchableOpacity, ImageBackground, Text } from 'react-native';
-import { List, Divider } from 'react-native-paper';
+import { View, FlatList, TouchableOpacity, ImageBackground, Text, Button } from 'react-native';
+import { List, IconButton } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
 import useStatsBar from '../../utils/useStatusBar';
 import styles from './styles';
 import { AuthContext } from '../../navigation/AuthProvider';
 import Loading from '../../components/Loading';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ route, navigation }) {
     useStatsBar('light-content');
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const [userData, setUserData] = useState();
     const [loading, setLoading] = useState(true);
+
+    React.useLayoutEffect(() => {
+        if (route.params == user.uid) {
+            navigation.setOptions({
+                headerRight: () => (
+                    <IconButton
+                        icon='account-edit'
+                        size={22}
+                        color='#ffffff'
+                        onPress={() => navigation.navigate('EditProfile')}
+                    />
+                ),
+            });
+        }
+    }, [navigation]);
 
     useEffect(() => {
         const unsubscribe = firestore()
             .collection('users')
-            .where('_id', '==', user.uid)
+            .where('_id', '==', route.params)
             .onSnapshot(querySnapshot => {
                 let userInfo;
                 querySnapshot.forEach(documentSnapshot => {
@@ -27,7 +42,7 @@ export default function ProfileScreen() {
                         "email": documentSnapshot.data().email
                     };
                     setUserData(userInfo);
-                    console.log(userData);
+                    navigation.setOptions({ title: userInfo.name });
                     if (loading) {
                         setLoading(false);
                     }
@@ -46,6 +61,11 @@ export default function ProfileScreen() {
     }
 
     return (
-        <Text>{userData.email}</Text>
+        <>
+            <List.Item
+                title={userData.email}
+                left={props => <List.Icon {...props} icon="folder" />}
+            />
+        </>
     );
 }
