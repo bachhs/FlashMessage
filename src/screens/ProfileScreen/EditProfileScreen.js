@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { View, ImageBackground } from 'react-native';
 import FormInput from '../../components/FormInput';
 import FormButtonLog from '../../components/FormButtonLog';
 import firestore from '@react-native-firebase/firestore';
@@ -6,6 +7,7 @@ import useStatsBar from '../../utils/useStatusBar';
 import styles from './styles';
 import { AuthContext } from '../../navigation/AuthProvider';
 import Loading from '../../components/Loading';
+import bgimage from '../LoginScreen/bg.png'
 
 export default function EditProfileScreen({ navigation, route }) {
     useStatsBar('light-content');
@@ -59,26 +61,41 @@ export default function EditProfileScreen({ navigation, route }) {
     }
 
     return (
-        <>
-            <FormInput
-                labelName='Email'
-                value={email}
-                autoCapitalize='none'
-                onChangeText={userEmail => setEmail(userEmail)}
-            />
-            <FormInput
-                labelName='Name'
-                value={name}
-                autoCapitalize='none'
-                onChangeText={userName => setName(userName)}
-            />
+        <ImageBackground source={bgimage} style={styles.container}>
+            <View style={styles.container}>
 
-            <FormButtonLog
-                title='Save'
-                modeValue='contained'
-                labelStyle={styles.loginButtonLabel}
-                onPress={() => handleButtonPress()}
-            />
-        </>
+                <FormInput
+                    labelName='Name'
+                    value={name}
+                    autoCapitalize='none'
+                    onChangeText={userName => setName(userName)}
+                />
+                <FormInput
+                    labelName='Email'
+                    value={name}
+                    autoCapitalize='none'
+                    onChangeText={userName => setName(userName)}
+                />
+                <FormInput
+                    labelName='Location'
+                    value={email}
+                    autoCapitalize='none'
+                    onChangeText={userEmail => setEmail(userEmail)}
+                />
+                <FormInput
+                    labelName='Phone'
+                    value={name}
+                    autoCapitalize='none'
+                    onChangeText={userName => setName(userName)}
+                />
+
+                <FormButtonLog
+                    title='Save'
+                    modeValue='contained'
+                    labelStyle={styles.loginButtonLabel}
+                    onPress={() => handleButtonPress()}
+                />
+            </View>
+        </ImageBackground >
     );
 }

@@ -26,8 +26,6 @@ export default StyleSheet.create({
         color: '#d8d8d8'
     },
 
-
-
     navButtonText: {
         fontSize: 13,
         color: 'white'

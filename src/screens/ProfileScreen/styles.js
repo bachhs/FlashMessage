@@ -1,64 +1,47 @@
 import { StyleSheet } from 'react-native';
+import { height, width } from '../../components/styles';
 
 export default StyleSheet.create({
-    header: {
-        backgroundColor: "white",
+    box: {
+        flex: 1,
+        width: null,
+        height: null,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: height / 20,
+        backgroundColor: 'whitesmoke'
     },
-    headerContent: {
-        padding: 10,
+    container: {
+        flex: 1,
+        width: null,
+        height: null,
+        justifyContent: 'center',
         alignItems: 'center',
     },
-    avatar: {
-        width: 200,
-        height: 200,
-        borderRadius: 100,
-        borderWidth: 1,
-        borderColor: "black",
-        marginBottom: 15,
-    },
-    name: {
-        fontSize: 22,
-        color: "#000000",
-        fontWeight: 'bold'
-    },
-    userInfo: {
-        fontSize: 16,
-        color: "#778899",
-        fontWeight: '600',
-    },
-    body: {
-        backgroundColor: "white",
-        height: 500,
-        alignItems: 'flex-start',
-        padding: 50,
-    },
-    item: {
-        flexDirection: 'row',
-        padding: 2,
-    },
-    infoContent: {
+    listContainer: {
         flex: 1,
-        alignItems: 'flex-start',
+        width: null,
+        height: null,
+        alignSelf: 'stretch',
+        marginLeft: width / 18,
+        marginTop: height / 40
     },
-    iconContent: {
-        flex: 0.3,
-        alignItems: 'flex-start',
-        paddingRight: 5,
+    listItemStyle: {
+        color: 'black',
+        fontSize: 27
     },
-    icon: {
-        width: 30,
-        height: 30,
-        marginTop: 20,
+    iconstyle: {
+        backgroundColor: 'orange',
+        borderRadius: 40,
+        marginTop: 12,
+        left: 0
     },
-    info: {
-        fontSize: 18,
-        marginTop: 20,
-        color: "black",
+    logoIcon: {
+        width: 150,
+        height: 150,
+        marginBottom: 20
     },
-    input: {
-        flex: 1,
-    },
-    button: {
-
+    titleText: {
+        fontSize: 30
     }
 });
