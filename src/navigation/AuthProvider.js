@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
             .then((response) => {
               const update = {
                 displayName: name,
-                photoURL: 'https://i.pinimg.com/originals/b9/58/2d/b9582d806f57b4d8aab0655759d3cb34.jpg',
+                photoURL: 'https://i.stack.imgur.com/l60Hf.png',
               };
               auth().currentUser.updateProfile(update);
               const uid = response.user.uid;
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
               const data = {
                 _id: uid,
                 name,
-                avatar: 'https://i.pinimg.com/originals/b9/58/2d/b9582d806f57b4d8aab0655759d3cb34.jpg',
+                avatar: 'https://i.stack.imgur.com/l60Hf.png',
                 email
               };
               const usersRef = firestore().collection('users');

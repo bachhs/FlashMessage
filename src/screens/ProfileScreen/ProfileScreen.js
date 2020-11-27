@@ -66,7 +66,9 @@ export default function ProfileScreen({ route, navigation }) {
             <View style={styles.box}>
                 <Image
                     style={styles.logoIcon}
-                    source={require('../LoginScreen/ic_launcher_round.png')}
+                    source={{
+                        uri: userData.avatar,
+                    }}
                 />
                 <Title style={styles.titleText}>{userData.name}</Title>
             </View>
@@ -93,7 +95,7 @@ export default function ProfileScreen({ route, navigation }) {
                     modeValue='text'
                     uppercase={false}
                     labelStyle={styles.navButtonText}
-                    onPress={() => navigation.navigate('logout')}
+                    onPress={() => logout()}
                 />
             </View >
         </View >
