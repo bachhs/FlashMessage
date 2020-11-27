@@ -3,7 +3,7 @@ import { ModalPicker } from 'emoji-mart-native';
 import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import firestore from '@react-native-firebase/firestore';
 import useStatsBar from '../../utils/useStatusBar';
-import { renderBubble } from './MessageContainer';
+import { renderBubble, renderMessageText } from './MessageContainer';
 import { renderInputToolbar, renderComposer, renderSend } from './InputToolbar';
 
 const ChatScreen = ({ route, navigation }) => {
@@ -103,6 +103,7 @@ const ChatScreen = ({ route, navigation }) => {
                 renderActions={renderActions}
                 renderComposer={renderComposer}
                 renderSend={renderSend}
+                renderMessageText={renderMessageText}
                 alwaysShowSend={true}
                 onPressAvatar={(user) => {
                     navigation.navigate('Profile', user._id);

@@ -39,7 +39,7 @@ export const renderSend = (props) => (
     containerStyle={{
       position: 'absolute',
       right: 0,
-      width: 60,
+      width: 70,
       height: 44,
       marginTop: 10,
       justifyContent: 'flex-end',
