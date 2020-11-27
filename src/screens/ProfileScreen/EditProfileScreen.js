@@ -72,9 +72,9 @@ export default function EditProfileScreen({ navigation, route }) {
                 />
                 <FormInput
                     labelName='Email'
-                    value={name}
+                    value={email}
                     autoCapitalize='none'
-                    onChangeText={userName => setName(userName)}
+                    onChangeText={userEmail => setEmail(userEmail)}
                 />
                 <FormInput
                     labelName='Location'
