@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native';
 import { height, width } from '../../components/styles';
 
 export default StyleSheet.create({
+    imageBox: {
+        width: 200,
+        height: 200
+    },
     box: {
         flex: 1,
         width: null,

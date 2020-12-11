@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Switch, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Bubble, MessageText } from 'react-native-gifted-chat';
-import { Emoji } from 'emoji-mart-native'
+import { Emoji } from 'emoji-mart-native';
 
 export const renderBubble = (props) => (
     <Bubble
@@ -38,8 +38,8 @@ const CustomMessageText = (props) => {
 
     return (
         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            { messages}
-        </View >
+            {messages}
+        </View>
     );
 }
 
