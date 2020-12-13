@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, Image } from 'react-native';
 import FormInput from '../../components/FormInput';
 import FormButtonLog from '../../components/FormButtonLog';
 import firestore from '@react-native-firebase/firestore';
 import useStatsBar from '../../utils/useStatusBar';
+import { launchImageLibrary } from 'react-native-image-picker/src/index';
+import storage, { firebase } from '@react-native-firebase/storage';
+import auth from '@react-native-firebase/auth';
 import styles from './styles';
 import { AuthContext } from '../../navigation/AuthProvider';
 import Loading from '../../components/Loading';
@@ -14,7 +17,9 @@ export default function EditProfileScreen({ navigation, route }) {
     const { user } = useContext(AuthContext);
 
     const [email, setEmail] = useState('');
-    const [avatar, setAvatar] = useState('');
+    const [phone, setPhone] = useState();
+    const [location, setLocation] = useState();
+    const [image, setImage] = useState(null);
     const [name, setName] = useState('');
     const [loading, setLoading] = useState(true);
 
@@ -25,7 +30,7 @@ export default function EditProfileScreen({ navigation, route }) {
             .onSnapshot(querySnapshot => {
                 querySnapshot.forEach(documentSnapshot => {
                     setName(documentSnapshot.data().name);
-                    setAvatar(documentSnapshot.data().avatar);
+                    setImage({ uri: documentSnapshot.data().avatar })
                     setEmail(documentSnapshot.data().email);
                 });
                 if (loading) {
@@ -39,21 +44,53 @@ export default function EditProfileScreen({ navigation, route }) {
         return () => unsubscribe();
     }, []);
 
-
-    function handleButtonPress() {
-        let docRef = firestore().collection('users').doc(user.uid);
-        docRef.update({
-            name: name,
-            email: email,
-            location: location,
-            phoneNumber: phoneNumber,
-        });
-        const update = {
-            displayName: name,
-            photoURL: 'https://i.pinimg.com/originals/b9/58/2d/b9582d806f57b4d8aab0655759d3cb34.jpg',
+    const selectImage = () => {
+        const options = {
+            maxWidth: 2000,
+            maxHeight: 2000,
+            storageOptions: {
+                skipBackup: true,
+                path: 'images'
+            }
         };
-        auth().currentUser.updateProfile(update);
-        navigation.goBack();
+        launchImageLibrary(options, response => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                const source = { uri: response.uri };
+                setImage(source);
+            }
+        });
+    };
+
+    async function handleButtonPress() {
+        const { uri } = image;
+        const filename = uri.substring(uri.lastIndexOf('/') + 1);
+        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+        setLoading(true);
+        await storage().ref('/images/' + filename).putFile(uploadUri).then(async (e) => {
+            const url = await firebase.app().storage('gs://flashmessage-530bc.appspot.com/')
+                .ref('/images/' + e.metadata.name).getDownloadURL();
+            let docRef = firestore().collection('users').doc(user.uid);
+            docRef.update({
+                name: name,
+                email: email,
+                avatar: url,
+                location: location,
+                phoneNumber: phone,
+            });
+            const update = {
+                displayName: name,
+                photoURL: url,
+            };
+            auth().currentUser.updateProfile(update);
+        });
+        setLoading(false);
+        setImage(null);
     }
 
     if (loading) {
@@ -63,7 +100,15 @@ export default function EditProfileScreen({ navigation, route }) {
     return (
         <ImageBackground source={bgimage} style={styles.container}>
             <View style={styles.container}>
-
+                {image !== null ? (
+                    <Image source={{ uri: image.uri }} style={styles.imageBox} />
+                ) : null}
+                <FormButtonLog
+                    title='Upload image'
+                    modeValue='contained'
+                    labelStyle={styles.loginButtonLabel}
+                    onPress={selectImage}
+                />
                 <FormInput
                     labelName='Name'
                     value={name}
@@ -74,21 +119,24 @@ export default function EditProfileScreen({ navigation, route }) {
                     labelName='Email'
                     value={email}
                     autoCapitalize='none'
+<<<<<<< HEAD
                     onChangeText={userEmail => setEmail(userEmail)}
+=======
+                    onChangeText={email => setEmail(email)}
+>>>>>>> 4abb307833a1bf67797e8879da48b52f158c7afb
                 />
                 <FormInput
                     labelName='Location'
-                    value={email}
+                    value={location}
                     autoCapitalize='none'
-                    onChangeText={userEmail => setEmail(userEmail)}
+                    onChangeText={location => setLocation(location)}
                 />
                 <FormInput
                     labelName='Phone'
-                    value={name}
+                    value={phone}
                     autoCapitalize='none'
-                    onChangeText={userName => setName(userName)}
+                    onChangeText={phone => setPhone(phone)}
                 />
-
                 <FormButtonLog
                     title='Save'
                     modeValue='contained'
@@ -96,6 +144,6 @@ export default function EditProfileScreen({ navigation, route }) {
                     onPress={() => handleButtonPress()}
                 />
             </View>
-        </ImageBackground >
+        </ImageBackground>
     );
 }
