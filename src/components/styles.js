@@ -14,6 +14,11 @@ export default StyleSheet.create({
         backgroundColor: '#55ad3b'
     },
 
+    buttonUploadimg: {
+        backgroundColor: 'transparent',
+        marginBottom: height / 14
+    },
+
     buttonTransparent: {
         marginTop: 8,
         backgroundColor: 'transparent'
@@ -34,17 +39,30 @@ export default StyleSheet.create({
         height: height / 17.5
     },
 
+    buttonUpLoadContainer: {
+        width: width / 1.8,
+        height: height / 17.5
+    },
+
+
     input: {
         marginTop: 10,
-        marginBottom: 10,
+        marginBottom: 15,
         width: width / 1.3,
         height: height / 15,
         backgroundColor: '#ffffff',
+        color: 'black',
         opacity: 0.97,
+        borderColor: 'gray',
         borderTopRightRadius: 10,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         borderTopLeftRadius: 10
+    },
+
+    input1: {
+        width: width / 1.3,
+        height: height / 15,
     },
 
     loadingContainer: {

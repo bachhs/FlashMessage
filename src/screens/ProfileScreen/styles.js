@@ -3,8 +3,10 @@ import { height, width } from '../../components/styles';
 
 export default StyleSheet.create({
     imageBox: {
-        width: 200,
-        height: 200
+        width: 220,
+        height: 220,
+        marginBottom: 20,
+        borderRadius: 600
     },
     box: {
         flex: 1,
@@ -45,6 +47,10 @@ export default StyleSheet.create({
         height: 170,
         marginBottom: 20,
         borderRadius: 600
+    },
+    buttonUpLoadContainer: {
+        fontSize: 20,
+        color: 'white'
     },
     titleText: {
         fontSize: 30
