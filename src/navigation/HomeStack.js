@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
+import { View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { IconButton } from 'react-native-paper';
+import { IconButton, Avatar } from 'react-native-paper';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import AddChatScreen from '../screens/AddChatScreen/AddChatScreen';
 import ChatScreen from '../screens/ChatScreen/ChatScreen';
 import CallScreen from '../screens/CallScreen/CallScreen';
+import PhoneScreen from '../screens/CallScreen/PhoneScreen';
 import { AuthContext } from './AuthProvider';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import EditProfileScreen from '../screens/ProfileScreen/EditProfileScreen';
@@ -14,6 +16,7 @@ const ModalStack = createStackNavigator();
 
 function ChatApp() {
   const { user, logout } = useContext(AuthContext);
+  const avatar = user.photoURL;
 
   return (
     <ChatAppStack.Navigator
@@ -32,6 +35,19 @@ function ChatApp() {
         name='Home'
         component={HomeScreen}
         options={({ navigation }) => ({
+          headerLeft: () => (
+            <IconButton
+              icon={() => (
+                <Avatar.Image
+                  size={36}
+                  source={{ uri: avatar }}
+                />
+              )}
+              size={35}
+              color='yellow'
+              onPress={() => navigation.navigate('Profile', user.uid)}
+            />
+          ),
           headerRight: () => (
             <IconButton
               icon='message-plus'
@@ -39,16 +55,7 @@ function ChatApp() {
               color='#ffffff'
               onPress={() => navigation.navigate('AddChat')}
             />
-          ),
-          headerLeft: () => (
-            <IconButton
-              icon='account-circle'
-              size={35}
-              color='yellow'
-              onPress={() => navigation.navigate('Profile', user.uid)}
-            />
-          ),
-
+          )
         })}
       />
       <ChatAppStack.Screen
@@ -67,21 +74,35 @@ function ChatApp() {
         options={({ route, navigation }) => ({
           title: route.params.thread.name,
           headerRight: () => (
-            <IconButton
-              icon='video'
-              size={26}
-              color='#ffffff'
-              style={{ marginRight: 10 }}
-              onPress={() =>
-                navigation.navigate('Call', route.params)
-              }
-            />
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              <IconButton
+                icon='phone'
+                size={26}
+                color='#ffffff'
+                onPress={() =>
+                  navigation.navigate('Phone', route.params)
+                }
+              />
+              <IconButton
+                icon='video'
+                size={26}
+                color='#ffffff'
+                onPress={() =>
+                  navigation.navigate('Call', route.params)
+                }
+              />
+            </View>
           )
         })}
       />
       <ChatAppStack.Screen
         name='Call'
         component={CallScreen}
+        options={{ headerShown: false }}
+      />
+      <ChatAppStack.Screen
+        name='Phone'
+        component={PhoneScreen}
         options={{ headerShown: false }}
       />
     </ChatAppStack.Navigator>

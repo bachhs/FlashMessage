@@ -88,7 +88,7 @@ export default function ProfileScreen({ route, navigation }) {
                     titleStyle={styles.listItemStyle}
                     left={props => <List.Icon {...props} color="yellow" style={styles.iconstyle} icon="cellphone" />}
                 />
-            </View >
+            </View>
             <View style={styles.container}>
                 <FormButton
                     title='Log Out'
@@ -97,8 +97,8 @@ export default function ProfileScreen({ route, navigation }) {
                     labelStyle={styles.navButtonText}
                     onPress={() => logout()}
                 />
-            </View >
-        </View >
+            </View>
+        </View>
 
     );
 }
