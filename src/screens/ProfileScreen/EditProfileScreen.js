@@ -11,6 +11,7 @@ import styles from './styles';
 import { AuthContext } from '../../navigation/AuthProvider';
 import Loading from '../../components/Loading';
 import bgimage from '../LoginScreen/bg.png'
+import FormUploadImg from '../../components/FormUploadImg';
 
 export default function EditProfileScreen({ navigation, route }) {
     useStatsBar('light-content');
@@ -103,10 +104,11 @@ export default function EditProfileScreen({ navigation, route }) {
                 {image !== null ? (
                     <Image source={{ uri: image.uri }} style={styles.imageBox} />
                 ) : null}
-                <FormButtonLog
+                <FormUploadImg
+                    icon='image-edit'
                     title='Upload image'
-                    modeValue='contained'
-                    labelStyle={styles.loginButtonLabel}
+                    modeValue='text'
+                    labelStyle={styles.buttonUpLoadContainer}
                     onPress={selectImage}
                 />
                 <FormInput
@@ -114,12 +116,6 @@ export default function EditProfileScreen({ navigation, route }) {
                     value={name}
                     autoCapitalize='none'
                     onChangeText={userName => setName(userName)}
-                />
-                <FormInput
-                    labelName='Email'
-                    value={email}
-                    autoCapitalize='none'
-                    onChangeText={email => setEmail(email)}
                 />
                 <FormInput
                     labelName='Location'

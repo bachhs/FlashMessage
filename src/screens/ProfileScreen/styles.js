@@ -3,8 +3,10 @@ import { height, width } from '../../components/styles';
 
 export default StyleSheet.create({
     imageBox: {
-        width: 200,
-        height: 200
+        width: 220,
+        height: 220,
+        marginBottom: 20,
+        borderRadius: 600
     },
     box: {
         flex: 1,
@@ -27,23 +29,28 @@ export default StyleSheet.create({
         width: null,
         height: null,
         alignSelf: 'stretch',
-        marginLeft: width / 18,
+        marginLeft: width / 30,
         marginTop: height / 40
     },
     listItemStyle: {
         color: 'black',
-        fontSize: 27
+        fontSize: 25
     },
     iconstyle: {
         backgroundColor: 'orange',
-        borderRadius: 40,
+        borderRadius: 30,
         marginTop: 12,
         left: 0
     },
     logoIcon: {
-        width: 150,
-        height: 150,
-        marginBottom: 20
+        width: 170,
+        height: 170,
+        marginBottom: 20,
+        borderRadius: 600
+    },
+    buttonUpLoadContainer: {
+        fontSize: 20,
+        color: 'white'
     },
     titleText: {
         fontSize: 30

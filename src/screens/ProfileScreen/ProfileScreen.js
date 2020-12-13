@@ -94,7 +94,7 @@ export default function ProfileScreen({ route, navigation }) {
                     title='Log Out'
                     modeValue='text'
                     uppercase={false}
-                    labelStyle={styles.navButtonText}
+                    labelStyle={{ color: 'white', fontSize: 17 }}
                     onPress={() => logout()}
                 />
             </View>
