@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ModalPicker } from 'emoji-mart-native';
+import {IconButton} from 'react-native-paper';
 import { GiftedChat, Actions } from 'react-native-gifted-chat';
 import firestore from '@react-native-firebase/firestore';
 import useStatsBar from '../../utils/useStatusBar';
@@ -15,21 +16,13 @@ const ChatScreen = ({ route, navigation }) => {
     const [emoji, setEmoji] = useState(false);
 
     const renderActions = (props) => (
-        <Actions
-            {...props}
-            containerStyle={{
-                width: 30,
-                height: 30,
-                alignItems: 'center',
-                justifyContent: 'center',
-                paddingLeft: 10,
-                marginLeft: 4,
-                marginRight: 1,
-                marginBottom: 0,
+        <IconButton
+            icon="sticker-emoji"
+            size={20}
+            style={{
+                paddingLeft: 10
             }}
-            onPressActionButton={() => setEmoji(true)
-            }
-            optionTintColor="#222B45"
+            onPress={() => setEmoji(true)}
         />
     );
 
